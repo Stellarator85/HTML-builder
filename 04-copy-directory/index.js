@@ -11,8 +11,7 @@ const copyDir = (() =>
         if (err) throw err;
         else
           console.log(
-            `
----------------------------------------------------------
+            `---------------------------------------------------------
 * Folder "files-copy" was created/updated successfully! *
 ---------------------------------------------------------`
           );
@@ -20,8 +19,7 @@ const copyDir = (() =>
     )
     .then(function () {
       console.log(
-        `
----------------------------------------------------------
+        `---------------------------------------------------------
 * Folder "files-copy" was created/updated successfully! *
 ---------------------------------------------------------`
       );
@@ -64,7 +62,8 @@ const copyDir = (() =>
                 )
                 .then(function () {
                   console.log(
-                    `File "${newfile}" was copied to the "files-copy"-folder!`
+                    `File "${newfile}" was copied to the "files-copy"-folder!
+                    `
                   );
                 })
                 .catch(function (error) {
