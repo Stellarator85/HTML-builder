@@ -1,56 +1,33 @@
 const fs = require("fs");
-const path = require("path");
 const fsPromises = require("fs").promises;
+const path = require("path");
 
-fs.mkdir("04-copy-directory/files-copy", { recursive: true }, (err) => {
-  if (err) throw err; // не удалось создать папку
-  console.log(`Folder "files-copy"was created!`);
-});
-
-fsPromises
-  .copyFile(
-    `04-copy-directory/files/test-css.css`,
-    "04-copy-directory/files-copy/test-css.css"
-  )
-  .then(function () {
-    console.log(`File "test-css.css" was copied!`);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-fsPromises
-  .copyFile(
-    `04-copy-directory/files/test-image.jpg`,
-    "04-copy-directory/files-copy/test-image.jpg"
-  )
-  .then(function () {
-    console.log(`File "test-image.jpg" was copied!`);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-fsPromises
-  .copyFile(
-    `04-copy-directory/files/test-js.js`,
-    "04-copy-directory/files-copy/test-js.js"
-  )
-  .then(function () {
-    console.log(`File "test-js.js" was copied!`);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-fsPromises
-  .copyFile(
-    `04-copy-directory/files/test-text.txt`,
-    "04-copy-directory/files-copy/test-text.txt"
-  )
-  .then(function () {
-    console.log(`File "test-text.txt" was copied!`);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+const copyDir = (() =>
+  fs.readdir(`${path.dirname(__filename)}/files`, function (error, files) {
+    if (error) error;
+    else
+      fs.mkdir(
+        `${path.dirname(__filename)}/files-copy`,
+        { recursive: true },
+        (err) => {
+          if (err) throw err;
+          else
+            console.log(
+              `Folder "files-copy" was created/updated successfully!`
+            );
+        }
+      ) +
+        files.forEach((file) =>
+          fsPromises
+            .copyFile(
+              `${path.join(__dirname, "./files", file)}`,
+              `${path.join(__dirname, "./files-copy", file)}`
+            )
+            .then(function () {
+              console.log(`File "${file}" was copied to "files-copy"-folder!`);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        );
+  }))();
