@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 fs.readdir(
-  "03-files-in-folder/secret-folder",
+  `${path.dirname(__filename)}/secret-folder`,
   { withFileTypes: true },
   (err, data) => {
     if (err) console.error(err);
@@ -13,7 +13,7 @@ fs.readdir(
           .filter((file) => file.isFile())
           .forEach((file) => {
             fs.stat(
-              `03-files-in-folder/secret-folder/${file.name}`,
+              `${path.dirname(__filename)}/secret-folder/${file.name}`,
               function (err, stats) {
                 if (err) {
                   return console.error(err);
