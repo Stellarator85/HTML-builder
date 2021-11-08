@@ -11,17 +11,17 @@ const copyDir = (() =>
         if (err) throw err;
         else
           console.log(
-            `-------------------------------------------------------------
-*** Folder "files-copy" was created/updated successfully! ***
--------------------------------------------------------------`
+            `------------------------------------------------------------------
+   *** Folder "files-copy" was created/updated successfully! ***  
+------------------------------------------------------------------`
           );
       }
     )
     .then(function () {
       console.log(
-        `-------------------------------------------------------------
-*** Folder "files-copy" was created/updated successfully! ***
--------------------------------------------------------------`
+        `------------------------------------------------------------------
+   *** Folder "files-copy" was created/updated successfully! *** 
+------------------------------------------------------------------`
       );
     })
     .catch(function (error) {
@@ -62,7 +62,7 @@ const copyDir = (() =>
                 )
                 .then(function () {
                   console.log(
-                    `---File "${newfile}" was copied to the "files-copy"-folder!---`
+                    `• File "${newfile}" was copied to the "files-copy"-folder!`
                   );
                 })
                 .catch(function (error) {
@@ -72,3 +72,10 @@ const copyDir = (() =>
         }
       );
     }))();
+
+require("process").on("beforeExit", () => {
+  console.log(
+    `------------------------------------------------------------------
+                              *****`
+  );
+});
