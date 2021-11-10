@@ -172,11 +172,213 @@ fsPromises
               )
             );
     })
+  )
+  .then(() =>
+    fsPromises
+      .mkdir(
+        `${path.join(__dirname, "./project-dist/assets")}`,
+        { recursive: true },
+        (err) => {
+          if (err) throw err;
+          else
+            console.log(
+              `----------------------------------------------------------------
+   *** Folder "assets" was created/updated successfully! ***  
+----------------------------------------------------------------`
+            );
+        }
+      )
+      .then(function () {
+        console.log(
+          `----------------------------------------------------------------
+   *** Folder "assets" was created/updated successfully! *** 
+----------------------------------------------------------------`
+        );
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      /* .then(function () {
+    fs.readdir(
+      `${path.join(__dirname, "./project-dist/assets")}`,
+      function (error, oldfiles) {
+        if (error) error;
+        else if (!error && oldfiles.length === 0) return;
+        else
+          oldfiles.forEach((oldfile) =>
+            fs.unlink(
+              `${path.join(__dirname, "./project-dist/assets", oldfile)}`,
+              (err) => {
+                if (err) throw err;
+              }
+            )
+          );
+      }
+    );
+  })
+  .catch(function (error) {
+    console.log(error);
+  }) */
+      .then(
+        () =>
+          fsPromises
+            .mkdir(
+              `${path.join(__dirname, "./project-dist/assets/fonts")}`,
+              { recursive: true },
+              (err) => {
+                if (err) throw err;
+                else
+                  console.log(
+                    `----------------------------------------------------------------
+   *** Folder "fonts" was created/updated successfully! ***  
+----------------------------------------------------------------`
+                  );
+              }
+            )
+            .then(function () {
+              console.log(
+                `----------------------------------------------------------------
+   *** Folder "fonts" was created/updated successfully! *** 
+----------------------------------------------------------------`
+              );
+            })
+            .catch(function (error) {
+              console.log(error);
+            }) +
+          fsPromises
+            .mkdir(
+              `${path.join(__dirname, "./project-dist/assets/img")}`,
+              { recursive: true },
+              (err) => {
+                if (err) throw err;
+                else
+                  console.log(
+                    `----------------------------------------------------------------
+   *** Folder "img" was created/updated successfully! ***  
+----------------------------------------------------------------`
+                  );
+              }
+            )
+            .then(function () {
+              console.log(
+                `----------------------------------------------------------------
+   *** Folder "img" was created/updated successfully! *** 
+----------------------------------------------------------------`
+              );
+            })
+            .catch(function (error) {
+              console.log(error);
+            }) +
+          +fsPromises
+            .mkdir(
+              `${path.join(__dirname, "./project-dist/assets/svg")}`,
+              { recursive: true },
+              (err) => {
+                if (err) throw err;
+                else
+                  console.log(
+                    `----------------------------------------------------------------
+   *** Folder "svg" was created/updated successfully! ***  
+----------------------------------------------------------------`
+                  );
+              }
+            )
+            .then(function () {
+              console.log(
+                `----------------------------------------------------------------
+   *** Folder "svg" was created/updated successfully! *** 
+----------------------------------------------------------------`
+              );
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+      )
+      .then(function () {
+        fs.readdir(
+          `${path.join(__dirname, "./assets/fonts")}`,
+          function (error, files) {
+            if (error) error;
+            else
+              files.forEach((file) =>
+                fsPromises
+                  .copyFile(
+                    `${path.join(__dirname, "./assets/fonts", file)}`,
+                    `${path.join(
+                      __dirname,
+                      "./project-dist/assets/fonts",
+                      file
+                    )}`
+                  )
+                  .then(function () {
+                    console.log(
+                      `--> File "${file}" was successfully copied to the "fonts"-folder!`
+                    );
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  })
+              );
+          }
+        ) +
+          fs.readdir(
+            `${path.join(__dirname, "./assets/img")}`,
+            function (error, files) {
+              if (error) error;
+              else
+                files.forEach((file) =>
+                  fsPromises
+                    .copyFile(
+                      `${path.join(__dirname, "./assets/img", file)}`,
+                      `${path.join(
+                        __dirname,
+                        "./project-dist/assets/img",
+                        file
+                      )}`
+                    )
+                    .then(function () {
+                      console.log(
+                        `--> File "${file}" was successfully copied to the "img"-folder!`
+                      );
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    })
+                );
+            }
+          ) +
+          fs.readdir(
+            `${path.join(__dirname, "./assets/svg")}`,
+            function (error, files) {
+              if (error) error;
+              else
+                files.forEach((file) =>
+                  fsPromises
+                    .copyFile(
+                      `${path.join(__dirname, "./assets/svg", file)}`,
+                      `${path.join(
+                        __dirname,
+                        "./project-dist/assets/svg",
+                        file
+                      )}`
+                    )
+                    .then(function () {
+                      console.log(
+                        `--> File "${file}" was successfully copied to the "svg"-folder!`
+                      );
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    })
+                );
+            }
+          );
+      })
   );
 
 require("process").on("beforeExit", () => {
   console.log(
-    `----------------------------------------------------------------
-                             *****`
+    `--------------------------------------------------------------------
+                               FINISH!!!   `
   );
 });
