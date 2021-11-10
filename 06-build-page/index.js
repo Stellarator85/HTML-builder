@@ -105,10 +105,78 @@ fsPromises
             );
             writeStr2.end();
           });
-          console.log(`File "index.html" was created/updated successfully!`);
+          console.log(
+            `    • File "index.html" was created/updated successfully! •`
+          );
         });
       })
   )
   .catch(function (error) {
     console.log(error);
-  });
+  })
+  .then(() =>
+    fs.readdir(`${path.dirname(__filename)}/styles`, function (error, files) {
+      if (error) error;
+      else if (
+        !error &&
+        files.filter((file) => path.extname(file) === ".css").length <= 0
+      )
+        console.log(
+          `       • File "style.css" was created/updated successfully! •`
+        ) +
+          fsPromises.writeFile(
+            `${path.join(__dirname, "./project-dist", "style.css")}`,
+            ""
+          );
+      else
+        console.log(`    •  File "style.css" was created/updated successfully! • 
+/All the "style"-folder styles will be added to "style.css"-file:/ `) +
+          files
+            .filter((file) => path.extname(file) === ".css")
+            .forEach((file) =>
+              fs.readFile(
+                `${`${path.join(__dirname, "./styles", file)}`}`,
+                "utf8",
+                function (error, data) {
+                  if (error) console.log(error);
+                  else
+                    fsPromises
+                      .writeFile(
+                        `${path.join(
+                          __dirname,
+                          "./project-dist",
+                          "style.css"
+                        )}`,
+                        ""
+                      )
+                      .then(() =>
+                        fs.appendFile(
+                          `${path.join(
+                            __dirname,
+                            "./project-dist",
+                            "style.css"
+                          )}`,
+                          `${data}`,
+                          function (err) {
+                            if (err) {
+                              console.log(err);
+                            } else {
+                              console.log(
+                                `--> "${file}"-file styles were added to "style.css"-file!`
+                              );
+                            }
+                          }
+                        )
+                      );
+                }
+              )
+            );
+    })
+  );
+
+require("process").on("beforeExit", () => {
+  console.log(
+    `----------------------------------------------------------------
+                             *****`
+  );
+});
