@@ -80,19 +80,34 @@ fsPromises
           `${chunk.toString().replace(`{{header}}`, `${header}`)}`
         );
         writeStr.end();
-        //* копируем "articles"
-        fs.createReadStream(
-          `${path.join(__dirname, "./project-dist", "index.html")}`,
-          "utf8"
-        ).on("data", function (chunks) {
-          writeStr1 = fs.createWriteStream(
-            `${path.join(__dirname, "./project-dist", "index.html")}`
-          );
-          writeStr1.write(
-            `${chunks.toString().replace(`{{articles}}`, `${articles}`)}`
-          );
-          writeStr1.end();
-          //* копируем "footer"
+
+        console.log(
+          `    • File's "index.html" tag <header> was updated successfully! •`
+        );
+      })
+  )
+  .catch(function (error) {
+    console.log(error);
+  })
+  .then(() =>
+    //* копируем "articles"
+    fs
+      .createReadStream(
+        `${path.join(__dirname, "./project-dist", "index.html")}`,
+        "utf8"
+      )
+      .on("data", function (chunks) {
+        writeStr1 = fs.createWriteStream(
+          `${path.join(__dirname, "./project-dist", "index.html")}`
+        );
+        writeStr1.write(
+          `${chunks.toString().replace(`{{articles}}`, `${articles}`)}`
+        );
+        writeStr1.end();
+        console.log(
+          `    • File's "index.html" tag <articles> was updated successfully! •`
+        );
+        /* копируем "footer"
           fs.createReadStream(
             `${path.join(__dirname, "./project-dist", "index.html")}`,
             "utf8"
@@ -103,12 +118,30 @@ fsPromises
             writeStr2.write(
               `${chunkss.toString().replace("{{footer}}", `${footer}`)}`
             );
-            writeStr2.end();
-          });
-          console.log(
-            `    • File "index.html" was created/updated successfully! •`
-          );
-        });
+            writeStr2.end();*/
+      })
+  )
+  .catch(function (error) {
+    console.log(error);
+  })
+  .then(() =>
+    // копируем "footer"
+    fs
+      .createReadStream(
+        `${path.join(__dirname, "./project-dist", "index.html")}`,
+        "utf8"
+      )
+      .on("data", function (chunkss) {
+        writeStr2 = fs.createWriteStream(
+          `${path.join(__dirname, "./project-dist", "index.html")}`
+        );
+        writeStr2.write(
+          `${chunkss.toString().replace("{{footer}}", `${footer}`)}`
+        );
+        writeStr2.end();
+        console.log(
+          `    • File's "index.html" tag <footer> was updated successfully! •`
+        );
       })
   )
   .catch(function (error) {
